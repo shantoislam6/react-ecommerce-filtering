@@ -98,7 +98,11 @@ export default function Home() {
     size: ['L', 'M', 'S'],
   });
 
-  const { data: products, refetch } = useQuery({
+  const {
+    data: products,
+    refetch,
+    isRefetching,
+  } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       const { data } = await axios.post<QueryResult<TProduct>[]>(
@@ -382,7 +386,7 @@ export default function Home() {
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:col-span-3 lg:grid-cols-3">
             {products && products.length === 0 ? (
               <EmptyState />
-            ) : products ? (
+            ) : products && !isRefetching ? (
               products.map((product) => (
                 <Product
                   key={product.id}

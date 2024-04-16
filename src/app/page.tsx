@@ -102,7 +102,7 @@ export default function Home() {
     queryKey: ['products'],
     queryFn: async () => {
       const { data } = await axios.post<QueryResult<TProduct>[]>(
-        'http://localhost:3000/api/products',
+        process.env.NEXT_PUBLIC_SITE_URL + '/api/products',
         {
           filter: {
             sort: filter.sort,
